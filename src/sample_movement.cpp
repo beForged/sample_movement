@@ -1,12 +1,19 @@
 #include <iostream>
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
+#include <sensor_msgs/LaserScan.h>
 #include <stdio.h>
+
+void subCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
+	ROS_INFO_STREAM("uwu");
+}
 
 int main(int argc, char **argv){
 
 	ROS_INFO_STREAM("hewwo");
 
+	//must init the node
+	//easiest to pass argc argv, 3rd param is name of the node
 	ros::init(argc, argv, "move");
 	ros::NodeHandle nh;
 
@@ -14,6 +21,10 @@ int main(int argc, char **argv){
 	ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
 
 	ROS_INFO_STREAM("init publisher");
+
+	//smash that subscribe
+	ros::Subscriber sub = nh.subscribe<sensor_msgs::LaserScan>("/scan", 10, subCallback);
+	ROS_INFO_STREAM("init subscriber");
 
 	//init direction
 	geometry_msgs::Twist base_cmd;
@@ -67,4 +78,5 @@ int main(int argc, char **argv){
 	return 0;
 
 }
+
 
