@@ -5,12 +5,12 @@
 #include <stdio.h>
 
 void subCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
-	ROS_INFO_STREAM("uwu");
+	ROS_INFO_STREAM("called");
 }
 
 int main(int argc, char **argv){
 
-	ROS_INFO_STREAM("hewwo");
+	ROS_INFO_STREAM("hello");
 
 	//must init the node
 	//easiest to pass argc argv, 3rd param is name of the node
