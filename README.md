@@ -11,5 +11,7 @@ catkin_make
 rosrun sample_movement sample_movement
 
 
+
 adapted from https://github.com/demulab/move
-Built while working in Dr.Ottes lab University of Maryland
+
+Built while working in Dr.Ottes lab; University of Maryland
