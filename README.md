@@ -1,6 +1,7 @@
 # sample_movement
 
 This demonstrates moving a turtlebot with simple c++ code
+Running ubuntu 16.04 LTS on vbox 6 windows host, with ROS Kinetic as installed from Robotis emanuel
 
 Instructions:
 
