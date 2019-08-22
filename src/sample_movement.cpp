@@ -4,9 +4,6 @@
 #include <sensor_msgs/LaserScan.h>
 #include <stdio.h>
 
-void subCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
-	ROS_INFO_STREAM("called");
-}
 
 int main(int argc, char **argv){
 
@@ -23,8 +20,9 @@ int main(int argc, char **argv){
 	ROS_INFO_STREAM("init publisher");
 
 	//smash that subscribe
-	ros::Subscriber sub = nh.subscribe<sensor_msgs::LaserScan>("/scan", 10, subCallback);
+/*	ros::Subscriber sub = nh.subscribe<sensor_msgs::LaserScan>("/scan", 10, subCallback);
 	ROS_INFO_STREAM("init subscriber");
+*/
 
 	//init direction
 	geometry_msgs::Twist base_cmd;
@@ -50,11 +48,13 @@ int main(int argc, char **argv){
 
 	ROS_INFO_STREAM("start movement");
 
-	for(int i = 0; i < 2; i++){
+	for(int i = 0; i < 1; i++){
+		/*
 		for(int n = 10; n > 0; n--){
 			pub.publish(base_cmd);
 			rate.sleep();
 		}
+		 */
 
 		for(int n = 10; n > 0; n--){
 			pub.publish(base_cmd_turn_left);

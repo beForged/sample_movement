@@ -2,16 +2,18 @@ cmake_minimum_required(VERSION 2.8.3)
 project(sample_movement)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+ add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  sensor_msgs
   geometry_msgs
   roscpp
   rospy
   std_msgs
+  costmap_2d
 )
 
 ## System dependencies are found with CMake's conventions
@@ -106,7 +108,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS 
   LIBRARIES sample_movement
-  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs
+  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs sensor_msgs
   DEPENDS 
 )
 
@@ -119,12 +121,16 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  #${PCL_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/sample_movement.cpp
 # )
+add_library(rrt_lib src/rrt.cpp)
+
+#add_library(nanoflann INTERFACE)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -136,6 +142,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/sample_movement_node.cpp)
 add_executable(sample_movement src/sample_movement.cpp)
+add_executable(print src/print.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -152,7 +159,13 @@ add_executable(sample_movement src/sample_movement.cpp)
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(sample_movement ${catkin_LIBRARIES})
+target_link_libraries(print ${catkin_LIBRARIES})
 
+#target_link_libraries(nanoflann dd
+
+#link_libraries(${PCL_LIBRARY_DIRS})
+
+#add_definitions(${PCL_DEFINITIONS})
 #############
 ## Install ##
 #############
