@@ -54,6 +54,7 @@ namespace rrt{
 		}
 		//this is temp placeholder stuff
 		//TODO
+        //we call make path here to set plan and see if completed or not from return
 		
 		plan.clear();
 		current_iterations_ = 0;
@@ -62,8 +63,9 @@ namespace rrt{
 		
 	}
 
-    int RRTPlanner::makePath(const geometry_msgs::PoseStamped& start,
-                             const geometry_msgs::PoseStamped& goal){
+    bool RRTPlanner::makePath(const geometry_msgs::PoseStamped& start,
+                             const geometry_msgs::PoseStamped& goal
+                             std::vector<geometry_msgs::PoseStamped>& plan){
         /* 
          * RRT impl:
          * get a random point and add it to graph
@@ -73,12 +75,36 @@ namespace rrt{
          * else unsucessful then see if we reached max iterations and end if we have 
          * (endless iteration)
          */
+        std::pair<float,float> u;
+        graph V;
+        //add start node to graph
+
+        bool goalReached = false;
+
+        //check if robot is at goal or exceeded max iterations
+        while(goalReached || iterations < max_Iterations){
+        //randomly sample config space
+            u = makeRandPoint();
+        //w <- extend(v,u,epsilon) ?? w is graph, add new random point 
+        //get closest member of V to 
+            
+        //find radius with k neighbors around new 
+        //get those k neighbots
+        //get all reachable neighbors
+        //get closest of neighbots
+        //if distance not zero 
+        //  
+        // 
+        //
+            
+        }
     }
 
 	//forward simulate the robot against the costmap
 	bool RRTPlanner::testPath(){
 		
 	}
+    
 
     //generate a point within the map
     /*
