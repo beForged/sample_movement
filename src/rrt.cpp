@@ -78,6 +78,7 @@ namespace rrt{
         std::pair<float,float> u;
         rrt::graph V;
         //add start node to graph
+        V.addvertex();
 
         bool goalReached = false;
 
@@ -85,6 +86,7 @@ namespace rrt{
         while(!goalReached || iterations < max_Iterations){
         //randomly sample config space
             u = makeRandPoint();
+            V.addvertex(u);
         //w <- extend(v,u,epsilon) ?? w is graph, add new random point 
         //get closest member of V to 
             

@@ -12,17 +12,20 @@ namespace rrt{
         rrt::vertex *point;
         adjacent(rrt::vertex *v, float d) : distance(d) , point(v) {}
     };
+
+    struct coordinate{
+        float x;
+        float y;
+        coordinate(float x, float y) : x(x), y(y) {}
+    };
     struct vertex{
-        /*didnt end up using this
-         * vertex is declared as a int node pair
-         * typedef std::pair<int, node *> vertex;
-         */
         //adjacency list, with vertex, cost pair
         std::vector<adjacent> adj;
         //name i am not sure this is needed
         std::string name;
+        rrt::coordinate coordinate;
         //constructor
-        vertex(std::string s) : name(s) {}   
+        vertex(rrt::coordinate c, std::string name) : coordinate(c), name(name) {}   
     };
 
 
@@ -30,14 +33,14 @@ namespace rrt{
 		public:
             std::map<std::string, vertex*> work;
             //map work; //this is the map declared in line above (maybe rename)
-            void addvertex(const std::string&);
+            void addvertex(rrt::coordinate, const std::string&);
             void addedge(const std::string& from, const std::string& to, float cost);
 	};	
 	
-    void graph::addvertex(const std::string& name){
+    void graph::addvertex(rrt::coordinate c, const std::string& name){
         //look for duplicate?
         vertex *v;
-        v = new vertex(name);
+        v = new vertex(c, name);
         work[name] = v;
         //work.insert(n.name, n); ??
     }
