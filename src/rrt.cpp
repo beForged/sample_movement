@@ -76,13 +76,13 @@ namespace rrt{
          * (endless iteration)
          */
         std::pair<float,float> u;
-        graph V;
+        rrt::graph V;
         //add start node to graph
 
         bool goalReached = false;
 
         //check if robot is at goal or exceeded max iterations
-        while(goalReached || iterations < max_Iterations){
+        while(!goalReached || iterations < max_Iterations){
         //randomly sample config space
             u = makeRandPoint();
         //w <- extend(v,u,epsilon) ?? w is graph, add new random point 
