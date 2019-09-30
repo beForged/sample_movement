@@ -130,7 +130,7 @@ include_directories(
 # )
 add_library(rrt_lib src/rrt.cpp)
 
-#add_library(nanoflann INTERFACE)
+add_library(nanoflann INTERFACE)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
