@@ -32,7 +32,6 @@ namespace rrt{
 	class graph{
 		public:
             std::map<std::string, vertex*> work;
-            //map work; //this is the map declared in line above (maybe rename)
             void addvertex(rrt::coordinate, const std::string&);
             void addedge(const std::string& from, const std::string& to, float cost);
 	};	
@@ -42,7 +41,8 @@ namespace rrt{
         vertex *v;
         v = new vertex(c, name);
         work[name] = v;
-        //work.insert(n.name, n); ??
+        //this is good if we need to check return type (std::pair<iterator, bool>)
+        //work.insert(std::pair<std::string, vertex*>(name, v));
     }
 
     void graph::addedge(const std::string& from, const std::string& to, float cost){

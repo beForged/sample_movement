@@ -1,5 +1,5 @@
 //add the macros and the header file in the includes folder
-#include <pluginlib/class_list_macros.h>
+//#include <pluginlib/class_list_macros.h>
 #include "../include/sample_movement/rrt.h"
 #include "../include/nanoflann.hpp"
 
@@ -7,6 +7,12 @@
 PLUGINLIB_EXPORT_CLASS(rrt::RRTPlanner, nav_core::BaseGlobalPlanner);
 
 namespace rrt{
+    //this is maybe the wrong place to put this struct
+    struct PointCloud{
+        struct Point{
+            
+        }
+    }
 	//checking if costmap is null or init is false?
 /*
 	RRTPlanner::RRTPlanner()
@@ -75,10 +81,12 @@ namespace rrt{
          * else unsucessful then see if we reached max iterations and end if we have 
          * (endless iteration)
          */
-        std::pair<float,float> u;
+        //initialize the graphs
         rrt::graph V;
+        
         //add start node to graph
-        V.addvertex();
+        //going to assume 2d navigation, graph will need to be modified TODO for non 2d navigation
+        V.addvertex(new rrt::coordinate(start.pose.position.x, start.pose.position.y), start);
 
         bool goalReached = false;
 
