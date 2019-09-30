@@ -37,6 +37,8 @@ class RRTPlanner: public nav_core::BaseGlobalPlanner{
 	bool makePlan(const geometry_msgs::PoseStamped& start,
 		      const geometry_msgs::PoseStamped& goal,
 		      std::vector<geometry_msgs::PoseStamped>& plan);
+    bool makePath(const geometry_msgs::PoseStamped& start,
+            const geometry_msgs::PoseStamped& end);
 
 	bool testPath();
     std::pair<float,float> makeRandPoint();

@@ -14,7 +14,7 @@ namespace rrt{
     struct PointCloud{
         struct Point{
             
-        }
+        };
     };
 	//checking if costmap is null or init is false?
 /*
@@ -73,7 +73,7 @@ namespace rrt{
 	}
 
     bool RRTPlanner::makePath(const geometry_msgs::PoseStamped& start,
-                             const geometry_msgs::PoseStamped& goal
+                             const geometry_msgs::PoseStamped& goal,
                              std::vector<geometry_msgs::PoseStamped>& plan){
         /* 
          * RRT impl:
@@ -130,7 +130,7 @@ namespace rrt{
     std::pair<float,float> RRTPlanner::makeRandPoint(){
         std::pair<float,float> new_point;
         std::random_device rd;
-        std::mt19937 gen gen(rd());
+        std::mt19937 gen(rd());
         float width = costmap_ -> getSizeInMetersX();
         float height= costmap_ -> getSizeInMetersY();
         std::uniform_real_distribution<> x(-width, width);
