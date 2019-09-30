@@ -90,7 +90,7 @@ namespace rrt{
         
         //add start node to graph
         //going to assume 2d navigation, graph will need to be modified TODO for non 2d navigation
-        V.addvertex(new rrt::coordinate(start.pose.position.x, start.pose.position.y), start);
+        V.addvertex(new rrt::coordinate(start.pose.position.x, start.pose.position.y));
 
         bool goalReached = false;
 

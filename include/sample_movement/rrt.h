@@ -44,7 +44,7 @@ class RRTPlanner: public nav_core::BaseGlobalPlanner{
 
 	bool testPath();
 
-    std::pair<float,float> makeRandPoint();
+    rrt::coordinate makeRandPoint();
 	
  private:
 	//variables in rrt.cpp

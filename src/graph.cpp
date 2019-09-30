@@ -2,32 +2,39 @@
 #include <utility>
 #include <vector>
 #include <map>
+#include "../include/sample_movement/graph.h"
 
 //https://stackoverflow.com/questions/5493474/graph-implementation-c
 namespace rrt{
+    /*
     struct vertex;
     
+    //this is an edge
     struct adjacent{
         float distance;
         rrt::vertex *point;
         adjacent(rrt::vertex *v, float d) : distance(d) , point(v) {}
     };
 
+    //2d coordinate representation, needs to be expandable to more than one 
+    //coordinate ideally
     struct coordinate{
         float x;
         float y;
         coordinate(float x, float y) : x(x), y(y) {}
     };
+
+    //adjacency list representation of graph node
     struct vertex{
         //adjacency list, with vertex, cost pair
         std::vector<adjacent> adj;
         //name i am not sure this is needed
-        std::string name;
         rrt::coordinate coordinate;
         //constructor
-        vertex(rrt::coordinate c, std::string name) : coordinate(c), name(name) {}   
+        vertex(rrt::coordinate c) : coordinate(c){}   
     };
 
+    */
 
 	class graph{
 		public:
@@ -39,7 +46,7 @@ namespace rrt{
     void graph::addvertex(rrt::coordinate c, const std::string& name){
         //look for duplicate?
         vertex *v;
-        v = new vertex(c, name);
+        v = new vertex(c);
         work[name] = v;
         //this is good if we need to check return type (std::pair<iterator, bool>)
         //work.insert(std::pair<std::string, vertex*>(name, v));
