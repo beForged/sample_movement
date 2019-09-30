@@ -4,7 +4,7 @@
 #include "../include/nanoflann.hpp"
 
 //this is for exporting the plugin for cmake
-PLUGINLIB_EXPORT_CLASS(rrt::RRTPlanner, nav_core::BaseGlobalPlanner);
+PLUGINLIB_EXPORT_CLASS(rrt::RRTPlanner, nav_core::BaseGlobalPlanner)
 
 namespace rrt{
     //this is maybe the wrong place to put this struct
@@ -12,7 +12,7 @@ namespace rrt{
         struct Point{
             
         }
-    }
+    };
 	//checking if costmap is null or init is false?
 /*
 	RRTPlanner::RRTPlanner()
@@ -112,6 +112,7 @@ namespace rrt{
 
 	//forward simulate the robot against the costmap
 	bool RRTPlanner::testPath(){
+        return true;
 		
 	}
     
