@@ -1,13 +1,14 @@
 //add the macros and the header file in the includes folder
-//#include <pluginlib/class_list_macros.h>
+#include <pluginlib/class_list_macros.h>
 #include "../include/sample_movement/rrt.h"
 //#include "../include/nanoflann.hpp"
 #include <nanoflann.hpp>
 
-namespace rrt{
-
 //this is for exporting the plugin for cmake
 PLUGINLIB_EXPORT_CLASS(rrt::RRTPlanner, nav_core::BaseGlobalPlanner)
+
+namespace rrt{
+
 
     //this is maybe the wrong place to put this struct
     struct PointCloud{
