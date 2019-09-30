@@ -2,8 +2,8 @@
 #include <utility>
 #include <vector>
 #include <map>
-#ifndef graph.h
-#define graph.h
+#ifndef graph
+#define graph
 #include "../include/sample_movement/graph.h"
 #endif
 

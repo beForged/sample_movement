@@ -21,8 +21,8 @@
 #include <boost/random.hpp>
 
 //local
-#ifndef graph.h
-#define graph.h 
+#ifndef graph
+#define graph
 #include "graph.h"
 #endif
 
