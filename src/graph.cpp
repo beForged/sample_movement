@@ -2,7 +2,10 @@
 #include <utility>
 #include <vector>
 #include <map>
+#ifndef graph.h
+#define graph.h
 #include "../include/sample_movement/graph.h"
+#endif
 
 //https://stackoverflow.com/questions/5493474/graph-implementation-c
 namespace rrt{

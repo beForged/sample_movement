@@ -21,7 +21,10 @@
 #include <boost/random.hpp>
 
 //local
+#ifndef graph.h
+#define graph.h 
 #include "graph.h"
+#endif
 
 namespace rrt{
 class RRTPlanner: public nav_core::BaseGlobalPlanner{

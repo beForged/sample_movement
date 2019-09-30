@@ -128,8 +128,7 @@ namespace rrt{
      * in order to make sure we can actually get to the end, we need to manually
      * add the goal every n iterations so that it actually is in the graph
      */
-    std::pair<float,float> RRTPlanner::makeRandPoint(){
-        std::pair<float,float> new_point;
+    rrt::coordinate RRTPlanner::makeRandPoint(){
         std::random_device rd;
         std::mt19937 gen(rd());
         float width = costmap_ -> getSizeInMetersX();
@@ -140,7 +139,7 @@ namespace rrt{
         new_point.first = x(gen);
         new_point.second= y(gen);
         
-        return new_point;
+        return new rrt::coordinate(new_point.first, new_point.second);
     }
 	
 }
