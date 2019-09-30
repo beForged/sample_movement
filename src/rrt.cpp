@@ -1,7 +1,8 @@
 //add the macros and the header file in the includes folder
 //#include <pluginlib/class_list_macros.h>
 #include "../include/sample_movement/rrt.h"
-#include "../include/nanoflann.hpp"
+//#include "../include/nanoflann.hpp"
+#include <nanoflann.hpp>
 
 //this is for exporting the plugin for cmake
 PLUGINLIB_EXPORT_CLASS(rrt::RRTPlanner, nav_core::BaseGlobalPlanner)
