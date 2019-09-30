@@ -16,7 +16,7 @@
 #include <cmath>
 #include <set>
 #include <string>
-#include <std::vector>
+#include <vector>
 #include <utility>
 #include <boost/random.hpp>
 
