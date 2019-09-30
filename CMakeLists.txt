@@ -128,7 +128,7 @@ include_directories(
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/sample_movement.cpp
 # )
-add_library(rrt_lib src/rrt.cpp)
+add_library(rrt_lib src/rrt.cpp src/graph.cpp)
 
 add_library(nanoflann INTERFACE)
 
@@ -142,7 +142,7 @@ add_library(nanoflann INTERFACE)
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/sample_movement_node.cpp)
 add_executable(sample_movement src/sample_movement.cpp)
-add_executable(print src/print.cpp)
+#add_executable(print src/print.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -159,7 +159,7 @@ add_executable(print src/print.cpp)
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(sample_movement ${catkin_LIBRARIES})
-target_link_libraries(print ${catkin_LIBRARIES})
+#target_link_libraries(print ${catkin_LIBRARIES})
 
 #target_link_libraries(nanoflann dd
 
