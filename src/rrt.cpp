@@ -4,10 +4,11 @@
 //#include "../include/nanoflann.hpp"
 #include <nanoflann.hpp>
 
+namespace rrt{
+
 //this is for exporting the plugin for cmake
 PLUGINLIB_EXPORT_CLASS(rrt::RRTPlanner, nav_core::BaseGlobalPlanner)
 
-namespace rrt{
     //this is maybe the wrong place to put this struct
     struct PointCloud{
         struct Point{
