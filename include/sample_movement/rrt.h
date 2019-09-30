@@ -12,12 +12,12 @@
 #include <base_local_planner/costmap_model.h>
 
 //std libraries
-#include <iostream>
-#include <cmath>
-#include <set>
-#include <string>
-#include <vector>
-#include <utility>
+#include <std::iostream>
+#include <std::cmath>
+#include <std::set>
+#include <std::string>
+#include <std::vector>
+#include <std::utility>
 #include <boost/random.hpp>
 
 //local
