@@ -1,7 +1,7 @@
 //add the macros and the header file in the includes folder
 #include <pluginlib/class_list_macros.h>
 #include "../include/sample_movement/rrt.h"
-//#include "../include/nanoflann.hpp"
+#include "../include/nanoflann.hpp"
 #include <nanoflann.hpp>
 //#include "graph.cpp"
 
