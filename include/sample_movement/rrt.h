@@ -1,3 +1,5 @@
+#ifndef rrt_h
+#define rrt_h
 /*ROS libraries*/
 #include <ros/ros.h>
 #include <move_base_msgs/MoveBaseAction.h>
@@ -61,3 +63,4 @@ class RRTPlanner: public nav_core::BaseGlobalPlanner{
 	
  };
 }
+#endif

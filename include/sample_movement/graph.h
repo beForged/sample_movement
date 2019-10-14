@@ -1,9 +1,9 @@
+#ifndef graph_h
+#define graph_h
 #include <cmath>
 #include <utility>
 #include <vector>
 #include <map>
-#ifndef graph_h
-#define graph_h
 
 namespace rrt{
     struct vertex;

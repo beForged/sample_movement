@@ -3,7 +3,7 @@
 #include "../include/sample_movement/rrt.h"
 //#include "../include/nanoflann.hpp"
 #include <nanoflann.hpp>
-#include "graph.cpp"
+//#include "graph.cpp"
 
 //this is for exporting the plugin for cmake
 PLUGINLIB_EXPORT_CLASS(rrt::RRTPlanner, nav_core::BaseGlobalPlanner)
