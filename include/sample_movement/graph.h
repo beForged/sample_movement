@@ -2,6 +2,8 @@
 #include <utility>
 #include <vector>
 #include <map>
+#ifndef graph_h
+#define graph_h
 
 namespace rrt{
     struct vertex;
@@ -31,3 +33,5 @@ namespace rrt{
             void addedge(rrt::vertex *from, rrt::vertex *to, float cost);
     };
 }
+
+#endif
