@@ -21,8 +21,8 @@
 #include <boost/random.hpp>
 
 //local
-#ifndef graph
-#define graph
+#ifndef graph_h
+#define graph_h
 #include "graph.h"
 #endif
 
@@ -47,7 +47,7 @@ class RRTPlanner: public nav_core::BaseGlobalPlanner{
 
 	bool testPath();
 
-    rrt::coordinate makeRandPoint();
+    rrt::coordinate* makeRandPoint();
 	
  private:
 	//variables in rrt.cpp
@@ -57,6 +57,8 @@ class RRTPlanner: public nav_core::BaseGlobalPlanner{
 	costmap_2d::Costmap2DROS* costmap_ros_;
 	costmap_2d::Costmap2D* costmap_;
 	int current_iterations_;
+    int iterations;
+    int max_iterations;
 
     
 	

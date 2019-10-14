@@ -87,6 +87,7 @@ namespace rrt{
          */
         //initialize the graphs
         rrt::graph V;
+        //rrt::coordinate u;
         
         //add start node to graph
         //going to assume 2d navigation, graph will need to be modified TODO for non 2d navigation
@@ -95,9 +96,9 @@ namespace rrt{
         bool goalReached = false;
 
         //check if robot is at goal or exceeded max iterations
-        while(!goalReached || iterations < max_Iterations){
+        while(!goalReached || iterations < max_iterations){
         //randomly sample config space
-            u = makeRandPoint();
+            rrt::coordinate *u = makeRandPoint();
             V.addvertex(u);
         //w <- extend(v,u,epsilon) ?? w is graph, add new random point 
         //get closest member of V to 
@@ -128,7 +129,7 @@ namespace rrt{
      * in order to make sure we can actually get to the end, we need to manually
      * add the goal every n iterations so that it actually is in the graph
      */
-    rrt::coordinate RRTPlanner::makeRandPoint(){
+    rrt::coordinate* RRTPlanner::makeRandPoint(){
         std::random_device rd;
         std::mt19937 gen(rd());
         float width = costmap_ -> getSizeInMetersX();
@@ -136,10 +137,12 @@ namespace rrt{
         std::uniform_real_distribution<> x(-width, width);
         std::uniform_real_distribution<> y(-height, height);
 
-        new_point.first = x(gen);
-        new_point.second= y(gen);
+        //new_point.first = x(gen);
+        //new_point.second= y(gen);
+        float xres = x(gen);
+        float yres = y(gen);
         
-        return new rrt::coordinate(new_point.first, new_point.second);
+        return new rrt::coordinate(xres, yres);
     }
 	
 }
