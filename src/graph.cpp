@@ -37,7 +37,6 @@ namespace rrt{
         vertex(rrt::coordinate c) : coordinate(c){}   
     };
 
-    */
 
 	class graph{
 		public:
@@ -45,6 +44,7 @@ namespace rrt{
             void addvertex(rrt::coordinate *c);
             void addedge(rrt::vertex *from, rrt::vertex *to, float cost);
 	};	
+    */
 	
     void graph::addvertex(rrt::coordinate *c){
         //look for duplicate?

@@ -23,4 +23,11 @@ namespace rrt{
         rrt::coordinate coordinate;
         vertex(rrt::coordinate c) : coordinate(c){}
     };
+
+    class graph{
+        public:
+            std::vector<vertex*> work;
+            void addvertex(rrt::coordinate *c);
+            void addedge(rrt::vertex *from, rrt::vertex *to, float cost);
+    };
 }
