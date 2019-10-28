@@ -11,12 +11,6 @@ PLUGINLIB_EXPORT_CLASS(rrt::RRTPlanner, nav_core::BaseGlobalPlanner)
 namespace rrt{
 
 
-    //this is maybe the wrong place to put this struct
-    struct PointCloud{
-        struct Point{
-            
-        };
-    };
 	//checking if costmap is null or init is false?
 /*
 	RRTPlanner::RRTPlanner()

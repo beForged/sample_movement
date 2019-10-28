@@ -2,47 +2,13 @@
 #include <utility>
 #include <vector>
 #include <map>
+#include <math.h>
+#include <algorithm>
 #include "../include/sample_movement/graph.h"
 
 //https://stackoverflow.com/questions/5493474/graph-implementation-c
 namespace rrt{
-    /*
-    struct vertex;
-    
-    //this is an edge
-    struct adjacent{
-        float distance;
-        rrt::vertex *point;
-        adjacent(rrt::vertex *v, float d) : distance(d) , point(v) {}
-    };
 
-    //2d coordinate representation, needs to be expandable to more than one 
-    //coordinate ideally
-    struct coordinate{
-        float x;
-        float y;
-        coordinate(float x, float y) : x(x), y(y) {}
-    };
-
-    //adjacency list representation of graph node
-    struct vertex{
-        //adjacency list, with vertex, cost pair
-        std::vector<adjacent> adj;
-        //name i am not sure this is needed
-        rrt::coordinate coordinate;
-        //constructor
-        vertex(rrt::coordinate c) : coordinate(c){}   
-    };
-
-
-	class graph{
-		public:
-            std::vector<vertex*> work;
-            void addvertex(rrt::coordinate *c);
-            void addedge(rrt::vertex *from, rrt::vertex *to, float cost);
-	};	
-    */
-	
     void graph::addvertex(rrt::coordinate *c){
         //look for duplicate?
         vertex *v;
@@ -52,12 +18,45 @@ namespace rrt{
         //work.insert(std::pair<std::string, vertex*>(name, v));
     }
 
-    
-
     void graph::addedge(rrt::vertex *from, rrt::vertex *to, float cost){
         //vertex * a = pos->first;
         rrt::adjacent a = adjacent(to, cost);
         from->adj.push_back(a);
     }
+
+    //finds the L2 distance
+    float distance(rrt::vertex *one, rrt::vertex *two){
+        float x = two->coordinate.x - one->coordinate.x;
+        float y = two->coordinate.y - two->coordinate.y;
+        return sqrt(x*x + y*y);
+    }
+
+    //finds K nearest neighbors. 
+    //This is a raw brute force O(dS) just for MVP purposes
+    //*start is node to find neighbors of 
+    //n is number of neighbors to find
+    std::vector<vertex> graph::find_KNN(rrt::vertex *start, int k){
+        int least = 0;
+        std::vector<vertex*> lst [k];
+        for(int i = 0; i < k; i++){ 
+            for(vertex* point : work){       
+                float d = rrt::distance(start,point);
+                bool contains = true;
+                for(int j = 0; j < k; j++){
+                    if(lst[j] == point){
+                        contains = false;
+                    }
+                }
+                if(d < least && contains){
+                    lst[i] = point;
+                    least = d;
+                }
+            }
+            
+        }
+        return lst;
+    }
+
+
 
 }

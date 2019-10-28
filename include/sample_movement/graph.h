@@ -24,6 +24,7 @@ namespace rrt{
         std::vector<adjacent> adj;
         rrt::coordinate coordinate;
         vertex(rrt::coordinate c) : coordinate(c){}
+        
     };
 
     class graph{
@@ -31,6 +32,8 @@ namespace rrt{
             std::vector<vertex*> work;
             void addvertex(rrt::coordinate *c);
             void addedge(rrt::vertex *from, rrt::vertex *to, float cost);
+            std::vector<vertex> find_KNN(rrt::vertex *start, int n);
+            float distance(rrt::vertex *one, rrt::vertex *two);
     };
 }
 
