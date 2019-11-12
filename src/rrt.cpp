@@ -81,6 +81,7 @@ namespace rrt{
          */
         //initialize the graphs
         rrt::graph V;
+        //TODO add knn graph here (kd tree or otherwise)
         //rrt::coordinate u;
         
         //add start node to graph
@@ -93,8 +94,16 @@ namespace rrt{
         while(!goalReached || iterations < max_iterations){
         //randomly sample config space
             rrt::coordinate *u = makeRandPoint();
-            V.addvertex(u);
+            //V.addvertex(u);
+            //get closest member of V to u'
+            //move u towards v until it is R distance away
+            rrt::vertex *v = get_moved();
+            //R = min(delta, shringkingball(n))
+            //attach parent vertex, and also all near ones become edges 
+            
         //w <- extend(v,u,epsilon) ?? w is graph, add new random point 
+        //w <- extend(v, u, epsilon) move from v at u by epsilon
+            
         //get closest member of V to 
             
         //find radius with k neighbors around new 

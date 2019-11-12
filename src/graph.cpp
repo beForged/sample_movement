@@ -57,6 +57,18 @@ namespace rrt{
         return lst;
     }
 
+    //for L2 distance, gets point at which
+    rrt::vertex get_moved(rrt::vertex *start, rrt::vertex *move, float r){
+        rrt::coordinate vec = rrt::coordinate(start->coordinate.x - move->coordinate.x, start->coordinate.y - move->coordinate.y);
+        float norm = sqrt(vec.x*vec.x + vec.y*vec.y);
+        //normalize
+        vec = rrt::coordinate((vec.x*r) / norm, (vec.y*r) / norm);
+        return rrt::vertex(vec);
+
+
+
+    }
+
 
 
 }

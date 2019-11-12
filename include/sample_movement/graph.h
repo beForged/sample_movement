@@ -23,9 +23,11 @@ namespace rrt{
     struct vertex{
         std::vector<adjacent> adj;
         rrt::coordinate coordinate;
+        rrt::vertex parent;
         vertex(rrt::coordinate c) : coordinate(c){}
-        
     };
+
+        
 
     class graph{
         public:
