@@ -42,6 +42,7 @@ namespace rrt{
             for(vertex* point : work){       
                 float d = rrt::distance(start,point);
                 bool contains = true;
+                //TODO make sure it doesnt count duplicates
                 for(int j = 0; j < k; j++){
                     if(lst[j] == point){
                         contains = false;
@@ -58,13 +59,25 @@ namespace rrt{
     }
 
     //for L2 distance, gets point at which
+    //moves vertex move towards start
     rrt::vertex get_moved(rrt::vertex *start, rrt::vertex *move, float r){
         rrt::coordinate vec = rrt::coordinate(start->coordinate.x - move->coordinate.x, start->coordinate.y - move->coordinate.y);
         float norm = sqrt(vec.x*vec.x + vec.y*vec.y);
         //normalize
         vec = rrt::coordinate((vec.x*r) / norm, (vec.y*r) / norm);
         return rrt::vertex(vec);
+    }
 
+    void remove_vertex(rrt::vertex *rem){
+        //find and vector::erase()
+        for(vertex* v : work){
+            //assume unique? just compare the pointers for now
+            if(&rem == &v){
+
+
+            }
+            
+        }
 
 
     }

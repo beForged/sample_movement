@@ -46,6 +46,8 @@ class RRTPlanner: public nav_core::BaseGlobalPlanner{
 
 	bool testPath();
 
+    int shrinkingball(int n);
+
     rrt::coordinate* makeRandPoint();
 	
  private:
@@ -58,6 +60,7 @@ class RRTPlanner: public nav_core::BaseGlobalPlanner{
 	int current_iterations_;
     int iterations;
     int max_iterations;
+    int delta;
 
     
 	

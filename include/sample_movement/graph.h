@@ -18,6 +18,12 @@ namespace rrt{
         float x;
         float y;
         coordinate(float x, float y) : x(x), y(y) {}
+        bool coordinate::operator ==(const coordinate &other) const{
+            if(x == other.x && y == other.y){
+                return true;
+            }
+            return false;
+        }
     };
 
     struct vertex{
@@ -25,6 +31,9 @@ namespace rrt{
         rrt::coordinate coordinate;
         rrt::vertex parent;
         vertex(rrt::coordinate c) : coordinate(c){}
+        bool vertex::operator ==(const vertex &other) const{
+            return coordinate == other.coordinate;
+        }
     };
 
         
@@ -36,6 +45,7 @@ namespace rrt{
             void addedge(rrt::vertex *from, rrt::vertex *to, float cost);
             std::vector<vertex> find_KNN(rrt::vertex *start, int n);
             float distance(rrt::vertex *one, rrt::vertex *two);
+
     };
 }
 
