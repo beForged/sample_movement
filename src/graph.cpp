@@ -69,15 +69,16 @@ namespace rrt{
     }
 
     void remove_vertex(rrt::vertex *rem){
+        //https://stackoverflow.com/questions/3385229/c-erase-vector-element-by-value-rather-than-by-position
+        work.erase(std::remove(work.begin(), work.end(), v) vec.end());
+        /*
         //find and vector::erase()
         for(vertex* v : work){
             //assume unique? just compare the pointers for now
             if(&rem == &v){
-
-
             }
-            
         }
+        */
 
 
     }

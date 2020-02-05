@@ -99,9 +99,12 @@ namespace rrt{
             //V.addvertex(u);
             //get closest member of V to u'
             //move u towards v until it is R distance away
+
             //add u to the graph first
             //need to add to graph becuase of graph implementation, change this later pls
             V.addvertex(*u);
+            //find nearest point on graph to it
+            ////this is a vector of vertexes TODO fix
             rrt::vertex nearest = find_KNN(*u,1);
             //R = min(delta, shringkingball(n)) only gets moved to R distance away
             float R = min(delta, shrinkingball(n)); //TODO need implement shrinkingball and init delta
@@ -109,10 +112,13 @@ namespace rrt{
             rrt::vertex *v = get_moved(nearest, u, R);
             V.remove_vertex(*u);
             V.addvertex(*v);
-            
             //attach parent vertex, and also all near ones become edges (how near?)
             V.addedge(v, nearest); //add parent edge
+            //TODO need to check that it is safe to attach edges
             //add KNN to radius R here and attach edges
+            //should actually be within a distance requires other knn function
+            std::vector<vertex> parents = find_KNN(*v, 5);
+            //add safe edges
             
             //w <- extend(v,u,epsilon) ?? w is graph, add new random point 
             //w <- extend(v, u, epsilon) move from v at u by epsilon
@@ -129,6 +135,7 @@ namespace rrt{
     }
 
 	//forward simulate the robot against the costmap
+    //should check that paths are possible or obstructed
 	bool RRTPlanner::testPath(){
         return true;
 		
