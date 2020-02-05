@@ -2,9 +2,8 @@
 //TODO REMEMBER TO UNCOMMENT THIS 
 //#include <pluginlib/class_list_macros.h>
 #include "../include/sample_movement/rrt.h"
-#include "../include/nanoflann.hpp"
-#include <nanoflann.hpp>
-//#include "graph.cpp"
+//#include "../include/nanoflann.hpp"
+#include "graph.cpp"
 
 //this is for exporting the plugin for cmake
 PLUGINLIB_EXPORT_CLASS(rrt::RRTPlanner, nav_core::BaseGlobalPlanner)
@@ -40,6 +39,7 @@ namespace rrt{
 //			ROS_INFO("step size: %.2f , goal radius: %.2f, delta: %2f, max iterations: %2f", 
 //			step_size_, goal_radius_, delta_, max_iterations_);
 			
+            //need to add costmap/obstacle map and obstacles here (at least at first
 			current_iterations_ = 0;
 			
 			ROS_INFO("planner initialized");
@@ -136,7 +136,18 @@ namespace rrt{
 
 	//forward simulate the robot against the costmap
     //should check that paths are possible or obstructed
+    //TODO need to add params, start and end of path
 	bool RRTPlanner::testPath(){
+        //this is the ros costmap, careful of overflow, might be more efficent to move to 2d bool array
+        //should be a separate function?
+        int ix = 0;//temp
+        int iy = 0;//temp
+        char cost = static_cast<int>(costmap_ -> getCost(ix, iy));
+        if(cost > 155){
+            return false;
+        }
+        //need to check rest of path at some interval epsilon probably
+
         return true;
 		
 	}
