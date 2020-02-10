@@ -137,17 +137,19 @@ namespace rrt{
 	//forward simulate the robot against the costmap
     //should check that paths are possible or obstructed
     //TODO need to add params, start and end of path
-	bool RRTPlanner::testPath(){
+	bool RRTPlanner::testPath(rrt::vertex *start, rrt::vertex *end){
         //this is the ros costmap, careful of overflow, might be more efficent to move to 2d bool array
         //should be a separate function?
-        int ix = 0;//temp
-        int iy = 0;//temp
+        int ix = end->coordinate.x;//temp
+        int iy = end->coordinate.y;//temp
+        //check ending so we arent in an obstacle.
         char cost = static_cast<int>(costmap_ -> getCost(ix, iy));
         if(cost > 155){
             return false;
         }
         //need to check rest of path at some interval epsilon probably
-
+        //forward simulate here
+        epsilon = 
         return true;
 		
 	}
