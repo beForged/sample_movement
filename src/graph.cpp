@@ -24,12 +24,16 @@ namespace rrt{
         from->adj.push_back(a);
     }
 
-    //finds the L2 distance
-    float distance(rrt::vertex *one, rrt::vertex *two){
-        float x = two->coordinate.x - one->coordinate.x;
-        float y = two->coordinate.y - two->coordinate.y;
+    float cdistance(coordinate one, coordinate two){
+        float x = two.x - one.x;
+        float y = two.y - two.y;
         return sqrt(x*x + y*y);
     }
+    //finds the L2 distance
+    float distance(rrt::vertex *one, rrt::vertex *two){
+        return cdistance(one->coordinate, two->coordinate);
+    }
+
 
     //finds K nearest neighbors. 
     //This is a raw brute force O(dS) just for MVP purposes

@@ -119,24 +119,30 @@ namespace rrt{
             //should actually be within a distance requires other knn function
             std::vector<vertex> parents = find_KNN(*v, 5);
             //add safe edges
-            
+            //for each vertex in parents, if safe then add edge
+            for(*vertex p: parents){
+                if(testPath(p, v)){
+                    V.addedge(v, p)
+                }
+            }
             //w <- extend(v,u,epsilon) ?? w is graph, add new random point 
             //w <- extend(v, u, epsilon) move from v at u by epsilon
 
             //get closest member of V to 
 
-            //find radius with k neighbors around new 
-            //get those k neighbots
-            //get all reachable neighbors
-            //get closest of neighbots
-            //if distance not zero 
 
+            //if there is an obstacle change
+            //add nodes near changed obstacles to queue
+            //while old cost - new cost > epsilon
+            //propagate cost to start updates toward shortest path
+            //move robot
         }
     }
 
 	//forward simulate the robot against the costmap
     //should check that paths are possible or obstructed
     //TODO need to add params, start and end of path
+    //https://github.com/jeshoward/turtlebot_rrt/blob/master/src/turtlebot_rrt.cc adapted from this issafe functionj
 	bool RRTPlanner::testPath(rrt::vertex *start, rrt::vertex *end){
         //this is the ros costmap, careful of overflow, might be more efficent to move to 2d bool array
         //should be a separate function?
@@ -149,7 +155,26 @@ namespace rrt{
         }
         //need to check rest of path at some interval epsilon probably
         //forward simulate here
-        epsilon = 
+        //TODO better values for epsilon
+        epsilon = .1;
+        //generate delta to check path
+        //TODO may need to convert coordinates (worldtomap)
+        float angle = atan2(end->coordinate.x - start->coordinate.x, end->coordinate.y - start->coordinate.y);
+        float current_x = start->coordinate.x;
+        float current_y = start->coordinate.y;
+
+        //writing a distance func
+        while(rrt::cdistance(rrt::coordinate(current_x, current_y), end->coordinate) > epsilon){
+            //TODO get cost takes unsigned ints
+            
+            if(costmap_->getCost(current_x, current_y) > 155){
+                return false;
+            }
+            //move over
+            current_x += delta * cos(angle);
+            current_y += delta * sin(angle);
+        }
+            
         return true;
 		
 	}
