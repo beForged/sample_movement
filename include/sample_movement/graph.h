@@ -28,6 +28,8 @@ namespace rrt{
 
     struct vertex{
         std::vector<adjacent> adj;
+        float goal_cost;
+        float lcm;
         rrt::coordinate coordinate;
         rrt::vertex parent;
         vertex(rrt::coordinate c) : coordinate(c){}

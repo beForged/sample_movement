@@ -104,7 +104,7 @@ namespace rrt{
             //need to add to graph becuase of graph implementation, change this later pls
             V.addvertex(*u);
             //find nearest point on graph to it
-            ////this is a vector of vertexes TODO fix
+            ////this is a vector of vertexes 
             rrt::vertex nearest = find_KNN(*u,1);
             //R = min(delta, shringkingball(n)) only gets moved to R distance away
             float R = min(delta, shrinkingball(n)); //TODO need implement shrinkingball and init delta
@@ -114,7 +114,7 @@ namespace rrt{
             V.addvertex(*v);
             //attach parent vertex, and also all near ones become edges (how near?)
             V.addedge(v, nearest); //add parent edge
-            //TODO need to check that it is safe to attach edges
+            //need to check that it is safe to attach edges
             //add KNN to radius R here and attach edges
             //should actually be within a distance requires other knn function
             std::vector<vertex> parents = find_KNN(*v, 5);
@@ -136,12 +136,31 @@ namespace rrt{
             //while old cost - new cost > epsilon
             //propagate cost to start updates toward shortest path
             //move robot
+            if(costmap_change()){//TODO
+            //write a function that says what has changed 
+            //now get the changes from another func?
+            //give it the last costmap
+                std::vector<vertex> changes = costmap_changes(costmap_);//TODO 
+                for(*vertex v : changes){
+                    //deactivate parts of the graph?
+                    //add flags to nnodes
+                    //add cost amount to nodes TODO
+
+                }
+
+            }
+            //
+            //generate pose list for local planner to follow.
+            //vector form
+            std::vector <vertex> vplan = graph_search();//TODO
+            //now convert to pose
+            plan = pose_convert(vplan);//TODO
+            //subscribe to costmap, find how costmap updates   
         }
     }
 
 	//forward simulate the robot against the costmap
     //should check that paths are possible or obstructed
-    //TODO need to add params, start and end of path
     //https://github.com/jeshoward/turtlebot_rrt/blob/master/src/turtlebot_rrt.cc adapted from this issafe functionj
 	bool RRTPlanner::testPath(rrt::vertex *start, rrt::vertex *end){
         //this is the ros costmap, careful of overflow, might be more efficent to move to 2d bool array
