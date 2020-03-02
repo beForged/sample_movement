@@ -144,7 +144,8 @@ namespace rrt{
                 for(*vertex v : changes){
                     //deactivate parts of the graph?
                     //add flags to nnodes
-                    //add cost amount to nodes TODO
+                    v.obstacle = true;
+                    //add cost amount to nodes TODO adjust new costs
 
                 }
 
@@ -157,6 +158,15 @@ namespace rrt{
             plan = pose_convert(vplan);//TODO
             //subscribe to costmap, find how costmap updates   
         }
+    }
+
+    std::vector<Geometry_msgs::Pose_stamped> pose_convert(std::vector plan){
+        std::vector<Geometry_msgs::Pose_Stamped>& ret;
+        for(vector v : plan){
+            //convert to pose stamped
+        }
+
+        //TODO still need to add to header file
     }
 
 	//forward simulate the robot against the costmap

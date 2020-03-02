@@ -30,6 +30,7 @@ namespace rrt{
         std::vector<adjacent> adj;
         float goal_cost;
         float lcm;
+        bool obstacle;
         rrt::coordinate coordinate;
         rrt::vertex parent;
         vertex(rrt::coordinate c) : coordinate(c){}
