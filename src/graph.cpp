@@ -83,7 +83,22 @@ namespace rrt{
             }
         }
         */
+    }
 
+    //assign cost to goal for each vertex
+    void assign_cost_goal(rrt::vertex *goal){
+        //start at goal and go outward
+        std::vector<rrt:vertex> visited;
+        visited.push_back(goal);
+
+        //build a queue, 
+
+
+
+    }
+
+    //somehow check visited
+    void assign_helper(float cost, ){
 
     }
 

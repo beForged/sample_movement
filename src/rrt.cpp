@@ -91,11 +91,17 @@ namespace rrt{
 
         bool goalReached = false;
         delta = 10;
+        int rand_counter = 0;
 
         //check if robot is at goal or exceeded max iterations
         while(!goalReached || iterations < max_iterations){
         //randomly sample config space
-            rrt::coordinate *u = makeRandPoint();
+            if(rand_counter == 20){
+
+            }else{
+                rrt::coordinate *u = makeRandPoint();
+                rand_counter += 1;
+            }
             //V.addvertex(u);
             //get closest member of V to u'
             //move u towards v until it is R distance away
@@ -128,8 +134,6 @@ namespace rrt{
             //w <- extend(v,u,epsilon) ?? w is graph, add new random point 
             //w <- extend(v, u, epsilon) move from v at u by epsilon
 
-            //get closest member of V to 
-
 
             //if there is an obstacle change
             //add nodes near changed obstacles to queue
@@ -144,11 +148,32 @@ namespace rrt{
                 for(*vertex v : changes){
                     //deactivate parts of the graph?
                     //add flags to nnodes
-                    v.obstacle = true;
-                    //add cost amount to nodes TODO adjust new costs
-
+                    v.obstacle = !v.obstacle;
+                    if(costmap_.getCost((unit) v->coordinate.x, (uint) v->coordinate.y) > 150 
+                            && !v.obstacle){
+                        v.obstacle= true;
+                    }
+                    //add cost amount to nodes adjust new costs
+                    if(!v.obstacle
+                    int min = INT_MAX;
+                    adjacent min_path;
+                    for(adjacent a : v.adj){
+                        //find lowest total cost
+                        if(a->point.goal_cost + a.distance < min){
+                            min_path = a;
+                            min = a->point.goal_cost + a.distance;
+                        }
+                    }
+                    //check differences
+                    if(abs(min_path - v.goal_cost) > epsilon){
+                        //then add to the work list if not less than epsilon
+                        for(adjacent a: v.adj){
+                            changes.push_back(a.point);
+                        }
+                    }
+                    //updates the costs
+                    v.goal_cost = min_path;
                 }
-
             }
             //
             //generate pose list for local planner to follow.
@@ -160,14 +185,25 @@ namespace rrt{
         }
     }
 
-    std::vector<Geometry_msgs::Pose_stamped> pose_convert(std::vector plan){
-        std::vector<Geometry_msgs::Pose_Stamped>& ret;
+    std::vector<Geometry_msgs::PoseStamped> pose_convert(std::vector<rrt::vertex> plan){
+        std::vector<Geometry_msgs::PoseStamped>& ret;
         for(vector v : plan){
-            //convert to pose stamped
+            Geometry_msgs::PoseStamped pos;
+            //TODO later fix this so that it uses tf and such
+            pos->header.frame_id = "direct";
+            pos->pose.position.x = v.coordinate.x;
+            pos->pose.position.y = v.coordinate.y;
+            ret.push_back(pos);
         }
-
-        //TODO still need to add to header file
+        return ret;
     }
+
+    std::vector<rrt::vertex> graph_search(){
+        //start from the end and find the optimal path ig
+        //add to header?
+        
+    }
+
 
 	//forward simulate the robot against the costmap
     //should check that paths are possible or obstructed
@@ -212,9 +248,9 @@ namespace rrt{
     //generate a point within the map
     /*
      * We need to generate random points to seed the graph to plan in
-     * TODO
      * in order to make sure we can actually get to the end, we need to manually
      * add the goal every n iterations so that it actually is in the graph
+     * do this in main loop, not here
      */
     rrt::coordinate* RRTPlanner::makeRandPoint(){
         std::random_device rd;

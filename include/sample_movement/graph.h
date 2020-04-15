@@ -34,6 +34,10 @@ namespace rrt{
         rrt::coordinate coordinate;
         rrt::vertex parent;
         vertex(rrt::coordinate c) : coordinate(c){}
+        ~vertex(){
+            //delete coordinate;
+            //^ use if its a pointer (which it might be)
+        }
         bool vertex::operator ==(const vertex &other) const{
             return coordinate == other.coordinate;
         }

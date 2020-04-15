@@ -44,7 +44,11 @@ class RRTPlanner: public nav_core::BaseGlobalPlanner{
             const geometry_msgs::PoseStamped& goal,
             std::vector<geometry_msgs::PoseStamped>& plan);
 
-	bool testPath();
+    std::vector<Geometry_msgs::PoseStamped> pose_convert(std::vector<vertex> plan);
+    
+    std::vector<rrt::vector> graph_search();
+
+	bool testPath(rrt::vertex *start, rrt::vertex *end);
 
     int shrinkingball(int n);
 
