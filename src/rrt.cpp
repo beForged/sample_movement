@@ -1,7 +1,9 @@
 //add the macros and the header file in the includes folder
 //TODO REMEMBER TO UNCOMMENT THIS 
-//#include <pluginlib/class_list_macros.h>
+#include <pluginlib/class_list_macros.h>
 #include "../include/sample_movement/rrt.h"
+#include <ros/ros.h>
+#include <geometry_msgs/Pose.h>
 //#include "../include/nanoflann.hpp"
 #include "graph.cpp"
 
@@ -144,55 +146,55 @@ namespace rrt{
             //write a function that says what has changed 
             //now get the changes from another func?
             //give it the last costmap
-                std::vector<vertex> changes = costmap_changes(costmap_);//TODO 
-                for(*vertex v : changes){
+                std::vector<vertex> changes = costmap_changes();//TODO 
+                for(rrt::vertex v : changes){
                     //deactivate parts of the graph?
                     //add flags to nnodes
                     v.obstacle = !v.obstacle;
-                    if(costmap_.getCost((unit) v->coordinate.x, (uint) v->coordinate.y) > 150 
-                            && !v.obstacle){
+                    if(costmap_->getCost((uint) v.coordinate.x, (uint) v.coordinate.y) > 150 && !v.obstacle){
                         v.obstacle= true;
                     }
                     //add cost amount to nodes adjust new costs
-                    if(!v.obstacle
+                    if(!v.obstacle){
                     int min = INT_MAX;
                     adjacent min_path;
                     for(adjacent a : v.adj){
                         //find lowest total cost
-                        if(a->point.goal_cost + a.distance < min){
+                        if(a.point.goal_cost + a.distance < min){
                             min_path = a;
-                            min = a->point.goal_cost + a.distance;
+                            min = a.point.goal_cost + a.distance;
                         }
                     }
                     //check differences
-                    if(abs(min_path - v.goal_cost) > epsilon){
+                    if(abs(min - v.goal_cost) > .1){ //replace .1 w epsiolon
                         //then add to the work list if not less than epsilon
                         for(adjacent a: v.adj){
-                            changes.push_back(a.point);
+                            changes.push_back(*a.point);
                         }
                     }
                     //updates the costs
-                    v.goal_cost = min_path;
+                    v.goal_cost = min;
+                    }
                 }
             }
             //
             //generate pose list for local planner to follow.
             //vector form
-            std::vector <vertex> vplan = graph_search();//TODO
+            std::vector<rrt::vertex> vplan = graph_search();//TODO
             //now convert to pose
-            plan = pose_convert(vplan);//TODO
+            std::vector<geometry_msgs::PoseStamped> plan = pose_convert(vplan);//TODO
             //subscribe to costmap, find how costmap updates   
         }
     }
 
-    std::vector<Geometry_msgs::PoseStamped> pose_convert(std::vector<rrt::vertex> plan){
-        std::vector<Geometry_msgs::PoseStamped>& ret;
-        for(vector v : plan){
-            Geometry_msgs::PoseStamped pos;
+    std::vector<geometry_msgs::PoseStamped> pose_convert(std::vector<rrt::vertex> plan){
+        std::vector<geometry_msgs::PoseStamped> ret;
+        for(vertex v : plan){
+            geometry_msgs::PoseStamped pos;
             //TODO later fix this so that it uses tf and such
-            pos->header.frame_id = "direct";
-            pos->pose.position.x = v.coordinate.x;
-            pos->pose.position.y = v.coordinate.y;
+            pos.header.frame_id = "direct";
+            pos.pose.position.x = v.coordinate.x;
+            pos.pose.position.y = v.coordinate.y;
             ret.push_back(pos);
         }
         return ret;
@@ -201,6 +203,9 @@ namespace rrt{
     std::vector<rrt::vertex> graph_search(){
         //start from the end and find the optimal path ig
         //add to header?
+        std::vector<rrt::vertex> ret;
+        
+        return ret;
         
     }
 
@@ -221,7 +226,7 @@ namespace rrt{
         //need to check rest of path at some interval epsilon probably
         //forward simulate here
         //TODO better values for epsilon
-        epsilon = .1;
+//        epsilon = .1;
         //generate delta to check path
         //TODO may need to convert coordinates (worldtomap)
         float angle = atan2(end->coordinate.x - start->coordinate.x, end->coordinate.y - start->coordinate.y);
@@ -229,7 +234,8 @@ namespace rrt{
         float current_y = start->coordinate.y;
 
         //writing a distance func
-        while(rrt::cdistance(rrt::coordinate(current_x, current_y), end->coordinate) > epsilon){
+        //replace .1 with epsilon
+        while(rrt::cdistance(rrt::coordinate(current_x, current_y), end->coordinate) > .1){
             //TODO get cost takes unsigned ints
             
             if(costmap_->getCost(current_x, current_y) > 155){

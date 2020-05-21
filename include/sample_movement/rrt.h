@@ -46,7 +46,11 @@ class RRTPlanner: public nav_core::BaseGlobalPlanner{
 
     std::vector<Geometry_msgs::PoseStamped> pose_convert(std::vector<vertex> plan);
     
-    std::vector<rrt::vector> graph_search();
+    std::vector<rrt::vertex> graph_search();
+
+    std::vector<rrt:vertex> costmap_changes();
+
+    bool costmap_change();
 
 	bool testPath(rrt::vertex *start, rrt::vertex *end);
 
